@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <video id="video-background" autoplay muted loop>
+    <source src="videos/forest.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+    <div class="calculator weather-container">
+        <div class="categories">
+            <input type="radio" id="category1" name="category" value="category1" onclick="redirectToIndex()">
+            <label for="category1">
+                <img src="images/calculator.jpg" alt="Category 1">
+            </label>
+            <input type="radio" id="category2" name="category" value="category2" onclick="redirectToIndex()">
+            <label for="category2">
+                <img src="images/location.png" alt="Category 2">
+            </label>
+            <input type="radio" id="category3" name="category" value="category3" checked>
+            <label for="category3">
+                <img src="images/weather.png" alt="Category 3">
+            </label>
+        </div>
+        <h1>Weather Forecast</h1>
+        <div id="weatherCatalog">
+            <!-- Weather forecast will be inserted here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        async function fetchWeatherForecast(destination, departDate) {
+            try {
+                const response = await fetch('/weather', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ destination, departDate }),
+                });
+
+                const data = await response.json();
+                const botMessage = data.response;
+                return botMessage.split(', ');
+            } catch (error) {
+                console.error('Error:', error);
+                return [];
+            }
+        }
+
+        function displayWeatherForecast(forecast, departDate) {
+            const weatherCatalog = document.getElementById('weatherCatalog');
+            weatherCatalog.innerHTML = ''; // Clear previous forecasts
+            let currentDate = new Date(departDate);
+            forecast.forEach((condition, index) => {
+                if (index < 7) { // Ensure only 7 days are displayed
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'weather-day';
+                    dayDiv.innerHTML = `<h2>Day ${index + 1}</h2><p>${currentDate.toDateString()}: ${condition}</p>`;
+                    weatherCatalog.appendChild(dayDiv);
+                    currentDate.setDate(currentDate.getDate() + 1); // Increment date
+                }
+            });
+        }
+
+        async function loadWeather() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const destination = urlParams.get('destination');
+            const departDate = urlParams.get('departDate');
+
+            if (destination && departDate) {
+                const forecast = await fetchWeatherForecast(destination, departDate);
+                displayWeatherForecast(forecast, departDate);
+            }
+        }
+
+        function redirectToIndex() {
+            window.location.href = 'index.html';
+        }
+
+        loadWeather();
+    </script>
+</body>
+</html>

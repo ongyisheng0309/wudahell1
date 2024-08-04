@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+    <title>Voyager - Start Your Perfect Trip</title>
+    <link rel="stylesheet" href="style2.css">
+    <!-- Include the Google Platform Library -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+    </script>
+    <script>
+        function signOut() {
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+            console.log('User signed out.');
+          });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="images/chingchong.jfif" alt="Left Image">
+        </div>
+        <div class="form-container">
+            <div>
+                <h1>Here where your trip starts...</h1>
+                
+                <form action="#">
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Password" required>
+                    <button type="submit">Log In</button>
+                </form><br>
+                <div class="separator">
+                    <span class="line"></span>
+                    <span class="or">or</span>
+                    <span class="line"></span>
+                </div>
+                <br>
+                <button class="google-login-button">Log in with Google</button length >
+                <div class="account-action">
+                    <p>Don't have an account? <a href="signup.html"><ins>Sign up</ins></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

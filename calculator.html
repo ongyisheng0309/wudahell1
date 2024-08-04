@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Emission Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <video id="video-background" autoplay muted loop>
+    <source src="videos/forest.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+    <div class="calculator">
+        <div class="categories">
+            <input type="radio" id="category1" name="category" value="category1" checked>
+            <label for="category1">
+                <img src="images/calculator.jpg" alt="Category 1">
+            </label>
+            <input type="radio" id="category2" name="category" value="category2">
+            <label for="category2">
+                <img src="images/location.png" alt="Category 2">
+            </label>
+            <input type="radio" id="category3" name="category" value="category3" onclick="redirectToWeather()">
+            <label for="category3">
+                <img src="images/weather.png" alt="Category 3">
+            </label>
+        </div>
+        <h1>Carbon Emission Calculator</h1>
+        <form id="emissionForm">
+            <label for="origin">Origin*:</label>
+            <input type="text" id="origin" name="origin" required>
+            
+            <label for="destination">Destination*:</label>
+            <input type="text" id="destination" name="destination" required>
+            
+            <div class="pax-date-container">
+                <div class="pax-container">
+                    <label for="pax">Pax:</label>
+                    <input type="number" id="pax" name="pax" required min="1" value="1">
+                </div>
+                <div class="date-container">
+                    <label for="departDate">Depart Date:</label>
+                    <input type="date" id="departDate" name="departDate" required>
+                </div>
+            </div>
+
+            <label for="transport">Mode of Transportation:</label>
+            <div class="radio-group">
+              <input type="radio" id="car" name="transportation" value="car">
+              <label for="car">Car</label>
+              
+              <input type="radio" id="motorcycle" name="transportation" value="motorcycle">
+              <label for="motorcycle">Motorcycle</label>
+              
+              <input type="radio" id="bus" name="transportation" value="bus">
+              <label for="bus">Bus</label>
+            </div>
+            
+            <button type="button" onclick="calculateEmission()">Calculate</button>
+        </form>
+        <div id="distance-info">Distance: <span id="distanceValue">0</span> km</div>
+        <div class="result" id="result">Your Total Carbon Emission is: <span id="emissionValue">0</span> kg</div>
+    </div>
+
+    <div id="loader" style="display:none;">
+        <img src="images/loader.gif" width="150px" alt="Loading...">
+    </div>
+    
+    <script>
+        async function fetchDistance(origin, destination) {
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ location1: origin, location2: destination }),
+                });
+
+                const data = await response.json();
+                const botMessage = data.response;
+                const numberMatch = botMessage.match(/\d+/);
+                return numberMatch ? parseInt(numberMatch[0]) : 0;
+            } catch (error) {
+                console.error('Error:', error);
+                return 0;
+            }
+        }
+
+        async function calculateEmission() {
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
+            const pax = document.getElementById('pax').value;
+            const departDate = document.getElementById('departDate').value; // New date input
+            
+            const transportElements = document.getElementsByName('transportation');
+            let transport = null;
+            for (const element of transportElements) {
+                if (element.checked) {
+                    transport = element.value;
+                    break;
+                }
+            }
+
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+
+            const distance = await fetchDistance(origin, destination);
+            document.getElementById('distanceValue').textContent = distance;
+
+            let emission = 0;
+            switch (transport) {
+                case 'car':
+                    emission = distance * 0.25; // example emission factor for car for 3 pax
+                    break;
+                case 'motorcycle':
+                    emission = distance * 0.083; // example emission factor for motorcycle for 1 pax
+                    break;
+                case 'bus':
+                    emission = distance * 0.0411; // example emission factor for bus for 20 pax
+                    break;
+                default:
+                    emission = 0;
+            }
+
+            emission *= pax;
+            document.getElementById('emissionValue').textContent = emission.toFixed(2);
+
+            loader.style.display = 'none';
+        }
+
+        function redirectToWeather() {
+            const destination = document.getElementById('destination').value;
+            const departDate = document.getElementById('departDate').value;
+            if (destination && departDate) {
+                window.location.href = `weather.html?destination=${destination}&departDate=${departDate}`;
+            } else {
+                alert('Please fill in both destination and depart date.');
+            }
+        }
+    </script>
+</body>
+</html>

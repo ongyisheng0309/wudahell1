@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&family=Kadwa:wght@400;700&display=swap" rel="stylesheet" />
+    <title>Eco-Travel Adventures</title>
+    <style>
+        :root {
+          --primary-color: #2c7873;
+          --secondary-color: #6fb98f;
+          --accent-color: #ffa62b;
+          --background-color: #f4f9f4;
+          --text-color: #333;
+        }
+
+        body {
+          font-family: "Arial", sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: var(--background-color);
+          color: var(--text-color);
+          line-height: 1.6;
+          background-size: cover;
+          background-position: center;
+          background-attachment: fixed;
+          overflow: auto; /* Enable scrolling */
+        }
+
+        #video-background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          min-width: 100%;
+          min-height: 100%;
+          width: auto;
+          height: auto;
+          z-index: -1;
+        }
+
+        header {
+          background-color: rgba(44, 120, 115, 0.8);
+          color: white;
+          padding: 1rem 5%;
+          position: fixed;
+          width: 90%;
+          top: 0;
+          z-index: 1000;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        nav a {
+          color: white;
+          text-decoration: none;
+          margin-left: 2rem;
+          transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+          color: var(--accent-color);
+        }
+
+        main {
+          max-width: 1200px;
+          margin: 100px auto 0;
+          padding: 2rem 5%;
+          background: rgba(255, 255, 255, 0.8);
+          border-radius: 10px;
+          position: relative;
+          z-index: 1;
+        }
+
+        section {
+          margin-bottom: 4rem;
+          padding: 1rem;
+          border: 1px solid var(--secondary-color);
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          background: rgba(255, 255, 255, 0.9);
+        }
+
+        h1,
+        h2,
+        h3 {
+          color: var(--primary-color);
+        }
+
+        .cta-button {
+          background-color: var(--accent-color);
+          color: white;
+          padding: 1rem 2rem;
+          text-decoration: none;
+          border-radius: 5px;
+          font-weight: bold;
+          display: inline-block;
+          margin-top: 1rem;
+          transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+          background-color: #e59400;
+        }
+
+        footer {
+          background-color: var(--primary-color);
+          color: white;
+          text-align: center;
+          padding: 2rem 5%;
+          margin-top: 4rem;
+          border-top: 5px solid var(--accent-color);
+        }
+
+        .social-icons a {
+          color: white;
+          margin: 0 0.5rem;
+          font-size: 1.5rem;
+          text-decoration: none;
+        }
+
+        .welcome-message {
+          font-family: "Young Serif", cursive;
+          font-size: 50px;
+          font-weight: 700;
+          margin-bottom: 1rem;
+          opacity: 0;
+          transition: opacity 1s ease-in-out;
+          text-align: center;
+        }
+
+        .welcome-message.fade-in {
+          opacity: 1;
+        }
+
+        .image-container {
+          text-align: center;
+          margin: 2rem 0;
+        }
+
+        .image-container img {
+          max-width: 100%;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container video {
+          max-width: 100%;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <video id="video-background" autoplay muted loop>
+        <source src="videos/main.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <header>
+        <nav>
+            <h1>Eco-Travel Adventures </h1>
+            <div>
+                <a href="calculator.html"> Carbon-FootPrint Calculator</a>
+                <a href="page2.html">Blog Posts</a>
+                <a href="login.html">Log In/Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Welcome to Wudahell Tourism</h2>
+            <div id="welcome-message" class="welcome-message">Welcome!</div>
+            <div class="image-container">
+                <img src="images/cal2.jfif" alt="Eco-Travel Image" />
+            </div>
+            <a href="calculator.html" class="cta-button">Click to calculate your carbon footprint!</a>
+        </section>
+
+        <section>
+            <h3>About Our Team: Wudahell</h3>
+            <p>
+                We are a group of 10 enthusiastic students passionate about preserving the environment. Our team, Wudahell, is dedicated to promoting sustainable travel practices and raising awareness about the impact of tourism on our planet. Through innovative solutions and education, we strive to make a positive difference in the world of eco-tourism.
+            </p>
+            <div class="image-container">
+                <img src="images/team.jfif" alt="Our Team Image" />
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>Contact Us</div>
+        <div class="social-icons">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Twitter">🐦</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="Email">✉️</a>
+        </div>
+        <div>&copy; 2024 Eco-Travel Adventures. All rights reserved.</div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const messages = [
+                "Welcome!", // English
+                "Bienvenido!", // Spanish
+                "Bienvenue!", // French
+                "Willkommen!", // German
+                "Benvenuto!", // Italian
+                "ようこそ!", // Japanese
+                "欢迎!", // Chinese
+                "Добро пожаловать!", // Russian
+            ];
+
+            const messageDiv = document.getElementById("welcome-message");
+
+            let currentIndex = 0;
+
+            function changeMessage() {
+                messageDiv.classList.remove("fade-in");
+                setTimeout(() => {
+                    messageDiv.textContent = messages[currentIndex];
+                    messageDiv.classList.add("fade-in");
+                    currentIndex = (currentIndex + 1) % messages.length;
+                }, 1000); // Duration of fade-out effect
+            }
+
+            changeMessage(); // Initial call to display the first message
+            setInterval(changeMessage, 2000); // Change message every 2 seconds
+        });
+    </script>
+</body>
+</html>

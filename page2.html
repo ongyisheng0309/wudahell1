@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Page | My Website</title>
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta property="og:title" content="News Page | My Website">
+    <meta property="og:description" content="Stay updated with the latest news">
+    <style>
+        /* Reset default styles */
+        body, html {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          overflow-x: hidden;
+        }
+
+        /* Header styles */
+        .header {
+          height: 100vh;
+          color: white;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .header video {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transform: translate(-50%, -50%);
+          z-index: -2;
+          opacity: 0.3; /* Adjust the transparency value */
+        }
+
+        .header::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5); /* Optional: Add a dark overlay */
+          z-index: -1;
+        }
+
+        .header-content {
+          z-index: 1;
+        }
+
+        .header h1 {
+          font-size: 5rem;
+          margin: 0;
+          font-family: 'default-font', serif;
+        }
+
+        .header h1::first-letter {
+          font-family: 'head-font', arial;
+          font-size: 9rem;
+        }
+
+        .header p {
+          font-size: 1.5rem;
+          margin: -30px 0 0;
+          color: #ffcc00;
+          font-family: Arial Black;
+          font-style: italic;
+        }
+
+        .button-container {
+          text-align: center;
+          margin-top: 50px;
+        }
+
+        .button {
+          display: inline-block;
+          padding: 10px 20px;
+          border: 2px solid #fff;
+          background-color: transparent;
+          color: #fff;
+          text-align: center;
+          text-decoration: none;
+          border-radius: 20px;
+          transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .button:hover {
+          background-color: #fff;
+          color: #333;
+        }
+
+        /* Navigation styles */
+        nav {
+          width: 100%;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 1000;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: background-color 0.3s ease;
+          padding: 15px 0;
+        }
+
+        nav.transparent {
+          background: transparent;
+        }
+
+        nav.opaque {
+          background: rgba(0, 0, 0, 0.744);
+        }
+
+        nav .logo {
+          margin-left: 20px;
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #ffffff;
+          font-family: serif;
+        }
+
+        nav ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+        }
+
+        nav ul li {
+          margin: 0 15px;
+        }
+
+        nav ul li a {
+          color: white;
+          text-decoration: none;
+          font-size: 1rem;
+          transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+          color: #ffcc00;
+        }
+
+        /* Section styles */
+        #newsSection {
+          padding: 50px;
+          text-align: center;
+        }
+
+        #newsSection h2 {
+          font-size: 2rem;
+          margin-bottom: 20px;
+        }
+
+        #newsContainer {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        #newsContainer .article {
+          max-width: 600px;
+          width: 100%;
+          text-align: center;
+          margin-bottom: 30px;
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          background-color: #f9f9f9;
+        }
+
+        #newsContainer .article h3 {
+          font-size: 1.5rem;
+          margin: 10px 0;
+        }
+
+        #newsContainer .article p {
+          font-size: 1rem;
+          margin: 10px 0;
+        }
+
+        #newsContainer .article a {
+          color: #ffcc00;
+          text-decoration: none;
+          font-size: 1rem;
+        }
+
+        #newsContainer .article a:hover {
+          text-decoration: underline;
+        }
+
+        /* Other container styles */
+        .container {
+          position: relative;
+          width: 1160px;
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin: auto;
+          margin-top: 45px;
+        }
+
+        .container .box {
+          position: relative;
+          width: 275px;
+          height: 275px;
+          background: #000;
+          transition: 0.5s;
+          transform-style: preserve-3d;
+          overflow: hidden;
+          margin-right: 15px;
+          margin-top: 45px;
+        }
+
+        .container:hover .box {
+          transform: rotateY(25deg);
+        }
+
+        .container .box:hover ~ .box {
+          transform: rotateY(-25deg);
+        }
+
+        .container .box:hover {
+          transform: rotateY(0deg) scale(1.25);
+          z-index: 1;
+          box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .container .box .imgBx {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        .container .box .imgBx:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(180deg, rgb(33, 59, 40), #000);
+          z-index: 1;
+          opacity: 0;
+          transition: 0.5s;
+          mix-blend-mode: multiply;
+        }
+
+        .container .box:hover .imgBx:before {
+          opacity: 1;
+        }
+
+        .container .box .imgBx img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .container .box .content {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          display: flex;
+          padding: 20px;
+          align-items: flex-end;
+          box-sizing: border-box;
+        }
+
+        .container .box .content h2 {
+          color: #fff;
+          transition: 0.5s;
+          text-transform: uppercase;
+          margin-bottom: 5px;
+          font-size: 20px;
+          transform: translateY(200px);
+          transition-delay: 0.3s;
+        }
+
+        .container .box:hover .content h2 {
+          transform: translateY(0px);
+        }
+
+        .container .box .content p {
+          color: #fff;
+          transition: 0.5s;
+          font-size: 14px;
+          transform: translateY(200px);
+          transition-delay: 0.4s;
+        }
+
+        .container .box:hover .content p {
+          transform: translateY(0px);
+        }
+
+        /* Text container styles */
+        .text-container {
+          flex: 1;
+          max-width: 80%;
+        }
+
+        .text-container h1 {
+          font-size: 3rem;
+          font-weight: bold;
+          line-height: 1.2;
+          margin-bottom: 20px;
+          font-family: serif;
+        }
+
+        .text-container h1 span {
+          font-family: 'Georgia', serif;
+          font-style: italic;
+        }
+
+        .text-container p {
+          font-size: 1rem;
+          line-height: 1.6;
+          color: #151515;
+          margin-bottom: 0px;
+          font-family: Georgia;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="transparent">
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo" style="height: 30px;"> News Page
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="header" id="home">
+        <video autoplay muted loop>
+            <source src="videos/page2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="header-content">
+            <h1>Welcome to the News Page!</h1>
+            <p>Stay updated with the latest news</p>
+        </div>
+        <div class="button-container">
+            <a href="#newsSection"  id="fetchNewsButton" class="button">Read News</a>
+        </div>
+    </header>
+
+    <section id="newsSection">
+        <h2>Latest News</h2>
+        <div id="newsContainer"></div> 
+    </section>
+
+    <script>
+        async function fetchNews() {
+            try {
+                const response = await fetch('/api/news'); // Fetch data from your server endpoint
+
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch news: ${response.status}`);
+                }
+
+                const newsData = await response.json();
+
+                // Example: Display news articles in a list
+                const newsContainer = document.getElementById('newsContainer');
+                newsContainer.innerHTML = ''; // Clear previous articles
+
+                newsData.articles.forEach(article => {
+                    const articleElement = document.createElement('div');
+                    articleElement.classList.add('article');
+                    articleElement.innerHTML = `
+                        <h3>${article.title}</h3>
+                        <img src="${article.urlToImage}" alt="${article.title}" style="max-width: 100%; height: auto;">
+                        <p>${article.description}</p>
+                        <a href="${article.url}" target="_blank">Read more</a>
+                    `;
+                    newsContainer.appendChild(articleElement);
+                });
+
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                // Handle error: display an error message or retry mechanism
+            }
+        }
+
+        // Attach event listener to the fetch news button
+        const fetchNewsButton = document.getElementById('fetchNewsButton');
+        fetchNewsButton.addEventListener('click', fetchNews);
+
+        // Optional: Fetch news on page load
+        // fetchNews(); // Uncomment this line if you want to fetch news automatically on page load
+
+        // Change nav background on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.remove('transparent');
+                nav.classList.add('opaque');
+            } else {
+                nav.classList.remove('opaque');
+                nav.classList.add('transparent');
+            }
+        });
+    </script>
+</body>
+</html>
