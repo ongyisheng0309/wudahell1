@@ -83,7 +83,7 @@ app.post('/weather', async (req, res) => {
 
 app.get('/api/news', async (req, res) => {
   try {
-    const url = 'https://newsapi.org/v2/everything?q=malaysia tourism&from=2024-08-02&to=2024-08-01&sortBy=popularity&apiKey=740685d749044e1e941f0266aadfe2ed';
+    const url = 'https://newsapi.org/v2/everything?q=malaysia tourism&from=2024-08-02&to=2024-08-01&sortBy=popularity&apiKey=YOUR_API_KEY';
 
     const response = await fetch(url);
 
